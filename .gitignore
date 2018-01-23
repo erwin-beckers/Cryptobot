@@ -1,4 +1,5 @@
-﻿**/Debug
+﻿**/app.config
+**/Debug
 **/Release
 **/Packages
 **/.vs
