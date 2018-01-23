@@ -37,6 +37,11 @@ namespace CryptoBotApp.bot
         public TimeFrame TimeFrame { get; }
 
         /// <summary>
+        /// Returns the point value
+        /// </summary>
+        public decimal Point { get; private set; }
+
+        /// <summary>
         /// List of candles
         /// </summary>
         public IList<ICandle> Candles => _candles;
@@ -97,6 +102,17 @@ namespace CryptoBotApp.bot
                 return false;
             }
 
+            string price = result.Data[0].Open.ToString();
+            int length = price.Substring(price.IndexOf(".") + 1).Length;
+            price = "0.";
+            for (int i = 0; i < length; ++i) 
+            {
+                if (i + 1 < length) price += "0";
+                else price += "1";
+            }
+            Point = Decimal.Parse(price);
+
+
             _candles = new List<ICandle>();
             for (int i = result.Data.Length - 1; i >= 0; i--)
             {
@@ -124,6 +140,54 @@ namespace CryptoBotApp.bot
             AverageCandleSize /= ((decimal)(Candles.Count - 1));
 
             return true;
+        }
+
+        /// <summary>
+        /// returns the candle with the lowest wick
+        /// </summary>
+        /// <returns>candle with lowest wick.</returns>
+        /// <param name="count">period</param>
+        /// <param name="startBar">Start bar.</param>
+        public ICandle Lowest(int count, int startBar)
+        {
+            ICandle minCandle = null;
+            for (int i = 0; i < count;++i)
+            {
+                var candle = Candles[i + startBar];
+                if (minCandle==null) 
+                {
+                    minCandle = candle;
+                }
+                else if (candle.Low < minCandle.Low)
+                {
+                    minCandle = candle;
+                }
+            }
+            return minCandle;
+        }
+
+        /// <summary>
+        /// returns the candle with the highest wick
+        /// </summary>
+        /// <returns>candle with highest wick.</returns>
+        /// <param name="count">period</param>
+        /// <param name="startBar">Start bar.</param>
+        public ICandle Highest(int count, int startBar)
+        {
+            ICandle maxCandle = null;
+            for (int i = 0; i < count; ++i)
+            {
+                var candle = Candles[i + startBar];
+                if (maxCandle == null)
+                {
+                    maxCandle = candle;
+                }
+                else if (candle.High > maxCandle.High)
+                {
+                    maxCandle = candle;
+                }
+            }
+            return maxCandle;
         }
     }
 }

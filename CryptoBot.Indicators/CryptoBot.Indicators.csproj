@@ -30,8 +30,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MovingAverage.cs" />
+    <Compile Include="Mbfx.cs" />
+    <Compile Include="ZigZag.cs" />
+    <Compile Include="TrendLine.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptobot.Interfaces\Cryptobot.Interfaces.csproj">
+      <Project>{3F72E454-B6D4-4A8B-BF52-52109EA3C593}</Project>
+      <Name>Cryptobot.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

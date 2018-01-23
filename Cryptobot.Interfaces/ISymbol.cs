@@ -39,5 +39,28 @@ namespace Cryptobot.Interfaces
         /// </summary>
         /// <returns>true when candles are refreshed, otherwise false</returns>
         bool Refresh();
+
+        /// <summary>
+        /// returns the candle with the lowest wick
+        /// </summary>
+        /// <returns>candle with lowest wick.</returns>
+        /// <param name="count">period</param>
+        /// <param name="startBar">Start bar.</param>
+        ICandle Lowest(int count, int startBar);
+
+
+        /// <summary>
+        /// returns the candle with the highest wick
+        /// </summary>
+        /// <returns>candle with highest wick.</returns>
+        /// <param name="count">period</param>
+        /// <param name="startBar">Start bar.</param>
+        ICandle Highest(int count, int startBar);
+
+        /// <summary>
+        /// Gets the point.
+        /// </summary>
+        /// <value>The point.</value>
+        decimal Point { get; }
     }
 }
