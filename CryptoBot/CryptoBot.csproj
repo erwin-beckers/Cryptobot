@@ -77,6 +77,9 @@
     <Reference Include="WebSocket4Net, Version=0.15.1.10, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
       <HintPath>..\packages\WebSocket4Net.0.15.1\lib\net45\WebSocket4Net.dll</HintPath>
     </Reference>
+    <Reference Include="Telegram.Bot">
+      <HintPath>..\packages\Telegram.Bot.13.4.0\lib\net45\Telegram.Bot.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bot\Candle.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="bot\Symbol.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="bot\TelegramBot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
