@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBot.Strategy.SPH", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBot.Indicators", "CryptoBot.Indicators\CryptoBot.Indicators.csproj", "{07B6C478-0695-48D1-8883-0DAA2B643141}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBot.Strategy.TrendReversal", "CryptoBot.Strategy.TrendReversal\CryptoBot.Strategy.TrendReversal.csproj", "{37D75E8A-5628-4F2C-9F51-7004F67D6494}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{07B6C478-0695-48D1-8883-0DAA2B643141}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07B6C478-0695-48D1-8883-0DAA2B643141}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B6C478-0695-48D1-8883-0DAA2B643141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,15 +1,19 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using Telegram.Bot;
 
 namespace CryptoBotApp.bot
 {
     public static class TelegramBot
     {
-        public async Task<void> SendAsync(string message)
+        public static void Send(string message)
         {
             var botClient = new TelegramBotClient(ConfigurationManager.AppSettings["telegramapi"]);
-            await botClient.SendTextMessageAsync(ConfigurationManager.AppSettings["telegramchatid"], message);
+            var task = Task.Run(async () =>
+            {
+                await botClient.SendTextMessageAsync(ConfigurationManager.AppSettings["telegramchatid"], message);
+            });
+            task.Wait();
         }
     }
 }

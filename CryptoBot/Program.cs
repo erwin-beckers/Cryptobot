@@ -1,5 +1,6 @@
 ﻿using Cryptobot.Interfaces;
 using CryptoBot.Strategy.SPH;
+using CryptoBot.Strategy.TrendReversal;
 using CryptoBotApp.bot;
 using System;
 using System.Configuration;
@@ -23,8 +24,8 @@ namespace CryptoBotApp
                 Console.WriteLine("api secret is empty in app.config");
                 return;
             }
-
-            using (var bot = new CryptoRobot(apiKey, apiSecret, new SPHStrategyFactory(), TimeFrame.OneHour))
+             
+            using (var bot = new CryptoRobot(apiKey, apiSecret, new TrendReversalStrategyFactory(), TimeFrame.OneHour))
             {
                 while (bot.Run())
                 {

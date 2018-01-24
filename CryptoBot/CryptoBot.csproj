@@ -104,6 +104,10 @@
       <Project>{5d443f43-6932-4f55-ac91-2ec8b666140e}</Project>
       <Name>CryptoBot.Strategy.SPH</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CryptoBot.Strategy.TrendReversal\CryptoBot.Strategy.TrendReversal.csproj">
+      <Project>{37d75e8a-5628-4f2c-9f51-7004f67d6494}</Project>
+      <Name>CryptoBot.Strategy.TrendReversal</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />

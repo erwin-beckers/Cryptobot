@@ -62,5 +62,7 @@ namespace Cryptobot.Interfaces
         /// </summary>
         /// <value>The point.</value>
         decimal Point { get; }
+
+        void SendAlert(string text);
     }
 }

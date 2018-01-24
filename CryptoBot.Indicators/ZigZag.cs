@@ -33,9 +33,9 @@ namespace CryptoBot.Indicators
             lastlow = 0;
             lasthigh = 0;
 
-            var maxBars = symbol.Candles.Count;
-            _zigZagBufferBuy  = new decimal[maxBars];
-            _zigZagBufferSell = new decimal[maxBars];
+            var maxBars = symbol.Candles.Count - _extBackstep;
+            _zigZagBufferBuy = new decimal[symbol.Candles.Count];
+            _zigZagBufferSell = new decimal[symbol.Candles.Count];
             decimal symbolPoint = symbol.Point;
 
             for (shift = maxBars - _extDepth; shift >= 0; shift--)

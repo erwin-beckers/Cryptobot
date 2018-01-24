@@ -12,6 +12,7 @@ namespace CryptoBotApp.bot
         private BinanceClient _client;
         private List<ICandle> _candles;
         private DateTime _lastRefresh;
+        private string _prevAlert = "";
 
         /// <summary>
         /// constructor
@@ -105,13 +106,12 @@ namespace CryptoBotApp.bot
             string price = result.Data[0].Open.ToString();
             int length = price.Substring(price.IndexOf(".") + 1).Length;
             price = "0.";
-            for (int i = 0; i < length; ++i) 
+            for (int i = 0; i < length; ++i)
             {
                 if (i + 1 < length) price += "0";
                 else price += "1";
             }
             Point = Decimal.Parse(price);
-
 
             _candles = new List<ICandle>();
             for (int i = result.Data.Length - 1; i >= 0; i--)
@@ -133,11 +133,11 @@ namespace CryptoBotApp.bot
             AverageCandleSize = 0;
 
             /// calculate average candle size
-            for (int i=1; i < Candles.Count; ++i)
+            for (int i = 1; i < Candles.Count; ++i)
             {
                 AverageCandleSize += Candles[i].Range;
             }
-            AverageCandleSize /= ((decimal)(Candles.Count - 1));
+            AverageCandleSize /= ((decimal)(Candles.Count));
 
             return true;
         }
@@ -151,10 +151,10 @@ namespace CryptoBotApp.bot
         public ICandle Lowest(int count, int startBar)
         {
             ICandle minCandle = null;
-            for (int i = 0; i < count;++i)
+            for (int i = 0; i < count; ++i)
             {
                 var candle = Candles[i + startBar];
-                if (minCandle==null) 
+                if (minCandle == null)
                 {
                     minCandle = candle;
                 }
@@ -188,6 +188,13 @@ namespace CryptoBotApp.bot
                 }
             }
             return maxCandle;
+        }
+
+        public void SendAlert(string text)
+        {
+            if (text == _prevAlert) return;
+            _prevAlert = text;
+            TelegramBot.Send(text);
         }
     }
 }

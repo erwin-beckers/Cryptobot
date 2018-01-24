@@ -23,7 +23,7 @@ namespace CryptoBot.Indicators
         }
 
         //--------------------------------------------------------------------
-        bool IsGreen(int bar)
+        public bool IsGreen(int bar)
         {
             if (bar < 0 || bar >= _trendRed.Length) return false;
             var x0 = bar > 0 ? _trendRed[bar - 1] : 0;
@@ -35,7 +35,7 @@ namespace CryptoBot.Indicators
         }
 
         //--------------------------------------------------------------------
-        bool IsRed(int bar)
+        public bool IsRed(int bar)
         {
             if (bar < 0 || bar >= _trendRed.Length) return false;
             var x0 = bar > 0 ? _trendRed[bar - 1] : 0;
@@ -47,9 +47,9 @@ namespace CryptoBot.Indicators
         }
 
         //--------------------------------------------------------------------
-        void Refresh(ISymbol symbol)
+        public void Refresh(ISymbol symbol)
         {
-            int limit = 500;
+            int limit = symbol.Candles.Count - 30;
             _trendNone = new decimal[symbol.Candles.Count];
             _trendRed = new decimal[symbol.Candles.Count];
 
