@@ -50,6 +50,7 @@
     <Compile Include="IStrategyFactory.cs" />
     <Compile Include="ISymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Signal.cs" />
     <Compile Include="TimeFrame.cs" />
   </ItemGroup>
   <ItemGroup>

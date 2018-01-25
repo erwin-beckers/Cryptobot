@@ -9,6 +9,6 @@ namespace Cryptobot.Interfaces
     public interface IStrategy
     {
         ISymbol Symbol { get; }
-        void Process();
+        Signal Process();
     }
 }

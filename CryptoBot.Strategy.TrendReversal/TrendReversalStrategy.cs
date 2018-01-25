@@ -13,16 +13,24 @@ namespace CryptoBot.Strategy.TrendReversal
         private ZigZag _zigZag = new ZigZag();
         private Mbfx _mbfx = new Mbfx();
         private TrendLine _trendLine = new TrendLine();
+        private Signal _signal = new Signal();
 
         public TrendReversalStrategy(ISymbol symbol)
         {
             Symbol = symbol;
+            _signal.Symbol = symbol;
+            _signal.Indicators.Add(new Indicator("ZigZag"));
+            _signal.Indicators.Add(new Indicator("MBFX"));
+            _signal.Indicators.Add(new Indicator("Trend"));
+            _signal.Indicators.Add(new Indicator("MA15"));
         }
 
         public ISymbol Symbol { get; private set; }
 
-        public void Process()
+        public Signal Process()
         {
+            if (Symbol.Candles == null) return _signal;
+            if (Symbol.Candles.Count == 0) return _signal;
             _zigZag.Refresh(Symbol);
             _mbfx.Refresh(Symbol);
             _trendLine.Refresh(Symbol);
@@ -118,13 +126,17 @@ namespace CryptoBot.Strategy.TrendReversal
             // set indicators
             if (zigZagBar >= 1 && (zigZagBuy || zigZagSell))
             {
+                _signal.Indicators[0].IsValid = true;
+                _signal.Indicators[1].IsValid = mbfxOk;
+                _signal.Indicators[2].IsValid = trendOk;
+                _signal.Indicators[3].IsValid = sma15Ok;
+                _signal.Type = SignalType.None;
                 if (mbfxOk && trendOk && sma15Ok)
                 {
-                    // send alert
-                    if (zigZagBuy) Symbol.SendAlert("Buy " + Symbol.Name);
-                    else if (zigZagSell) Symbol.SendAlert("Sell " + Symbol.Name);
+                    _signal.Type = zigZagBuy ? SignalType.Buy : SignalType.Sell;
                 }
             }
+            return _signal;
         }
     }
 }

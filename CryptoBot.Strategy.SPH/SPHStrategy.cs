@@ -12,18 +12,18 @@ namespace CryptoBot.Strategy.SPH
             Symbol = symbol;
         }
 
-        public void Process()
+        public Signal Process()
         {
             // current and previous candles should be red
-            if (Symbol.CurrentCandle.IsGreen) return;
-            if (Symbol.PreviousCandle.IsGreen) return;
-            if (Symbol.PreviousCandle.Range == 0.0M) return;
-            if (Symbol.PreviousCandle.Range < Symbol.AverageCandleSize) return;
+            if (Symbol.CurrentCandle.IsGreen) return null;
+            if (Symbol.PreviousCandle.IsGreen) return null;
+            if (Symbol.PreviousCandle.Range == 0.0M) return null;
+            if (Symbol.PreviousCandle.Range < Symbol.AverageCandleSize) return null;
 
             // previous candle should be a big candle
             decimal percentage = (Symbol.PreviousCandle.Range / Symbol.AverageCandleSize) * 100M;
             Console.WriteLine($"{Symbol.Name} previous candle: {percentage:N2}% of average candle size");
-            if (Symbol.PreviousCandle.Range < Symbol.AverageCandleSize * 2) return;
+            if (Symbol.PreviousCandle.Range < Symbol.AverageCandleSize * 2) return null;
 
             // and we should have some stability before
             int greenCandleCount = 0;
@@ -35,10 +35,11 @@ namespace CryptoBot.Strategy.SPH
                 if (candle.Range >= Symbol.AverageCandleSize * 0.8M && candle.Range <= Symbol.AverageCandleSize * 1.2M) averageCandles++;
             }
 
-            if (greenCandleCount < 4 || greenCandleCount > 6) return;
-            if (averageCandles < 6) return;
+            if (greenCandleCount < 4 || greenCandleCount > 6) return null;
+            if (averageCandles < 6) return null;
 
             Console.WriteLine($"{Symbol.Name} ---- SPH detected ---");
+            return null;
         }
     }
 }

@@ -1,36 +1,22 @@
-﻿using Cryptobot.Interfaces;
-using CryptoBot.Strategy.SPH;
-using CryptoBot.Strategy.TrendReversal;
-using CryptoBotApp.bot;
-using System;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace CryptoBotApp
+namespace CryptoBot
 {
-    internal class Program
+    static class Program
     {
-        private static void Main(string[] args)
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            var apiKey = ConfigurationManager.AppSettings["apikey"];
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                Console.WriteLine("api key is empty in app.config");
-                return;
-            }
-
-            var apiSecret = ConfigurationManager.AppSettings["apisecret"];
-            if (string.IsNullOrEmpty(apiSecret))
-            {
-                Console.WriteLine("api secret is empty in app.config");
-                return;
-            }
-             
-            using (var bot = new CryptoRobot(apiKey, apiSecret, new TrendReversalStrategyFactory(), TimeFrame.OneHour))
-            {
-                while (bot.Run())
-                {
-                }
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }
