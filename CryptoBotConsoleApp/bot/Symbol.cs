@@ -31,6 +31,19 @@ namespace CryptoBotApp.bot
         /// Returns the symbol name
         /// </summary>
         public string Name { get; }
+        public string NiceName
+        {
+            get
+            {
+                var name = Name;
+                if (name.EndsWith("ETH")) name = name.Replace("ETH", "/ETH");
+                if (name.EndsWith("BTC")) name = name.Replace("BTC", "/BTC");
+                if (name.EndsWith("USDT")) name = name.Replace("USDT", "/USDT");
+                if (name.EndsWith("BNB")) name = name.Replace("BNB", "/BNB");
+                name = name.Replace("//", "/");
+                return name;
+            }
+        }
 
         /// <summary>
         /// Returns the time frame

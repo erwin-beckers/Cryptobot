@@ -26,6 +26,7 @@ namespace CryptoBot.Strategy.TrendReversal
         }
 
         public ISymbol Symbol { get; private set; }
+        public Signal Signal => _signal;
 
         public Signal Process()
         {
@@ -130,11 +131,11 @@ namespace CryptoBot.Strategy.TrendReversal
                 _signal.Indicators[1].IsValid = mbfxOk;
                 _signal.Indicators[2].IsValid = trendOk;
                 _signal.Indicators[3].IsValid = sma15Ok;
+                _signal.Type = zigZagBuy ? SignalType.Buy : SignalType.Sell;
+            }
+            else
+            {
                 _signal.Type = SignalType.None;
-                if (mbfxOk && trendOk && sma15Ok)
-                {
-                    _signal.Type = zigZagBuy ? SignalType.Buy : SignalType.Sell;
-                }
             }
             return _signal;
         }

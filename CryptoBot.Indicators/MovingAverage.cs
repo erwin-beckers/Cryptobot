@@ -28,22 +28,23 @@ namespace CryptoBot.Indicators
             decimal price = 0M;
             for (int i = 0; i < period; ++i)
             {
+                int idx = Math.Min(bar + i, symbol.Candles.Count - 1);
                 switch (appliedPrice)
                 {
                     case AppliedPrice.Close:
-                        price += symbol.Candles[bar + i].Close;
+                        price += symbol.Candles[idx].Close;
                         break;
 
                     case AppliedPrice.Open:
-                        price += symbol.Candles[bar + i].Open;
+                        price += symbol.Candles[idx].Open;
                         break;
 
                     case AppliedPrice.High:
-                        price += symbol.Candles[bar + i].High;
+                        price += symbol.Candles[idx].High;
                         break;
 
                     case AppliedPrice.Low:
-                        price += symbol.Candles[bar + i].Low;
+                        price += symbol.Candles[idx].Low;
                         break;
                 } 
             }

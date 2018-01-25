@@ -5,11 +5,14 @@ namespace CryptoBot.Strategy.SPH
 {
     public class SPHStrategy : IStrategy
     {
+        private Signal _signal;
         public ISymbol Symbol { get; }
+        public Signal Signal => _signal;
 
         public SPHStrategy(ISymbol symbol)
         {
             Symbol = symbol;
+            _signal = new Signal();
         }
 
         public Signal Process()

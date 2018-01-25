@@ -66,5 +66,12 @@ namespace CryptoBot.Indicators
             }
 
         }
+
+        public decimal GetValue(int bar)
+        {
+            bar = Math.Max(0, bar);
+            bar = Math.Min(bar, _trendRed.Length-1);
+            return _trendRed[bar];
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Cryptobot.Interfaces
     {
         ISymbol Symbol { get; }
         Signal Process();
+        Signal Signal { get; }
     }
 }

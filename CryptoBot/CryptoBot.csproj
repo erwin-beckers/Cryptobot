@@ -129,6 +129,10 @@
     <Content Include="License-LGPL.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CryptoBot.Indicators\CryptoBot.Indicators.csproj">
+      <Project>{07B6C478-0695-48D1-8883-0DAA2B643141}</Project>
+      <Name>CryptoBot.Indicators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cryptobot.Interfaces\Cryptobot.Interfaces.csproj">
       <Project>{3F72E454-B6D4-4A8B-BF52-52109EA3C593}</Project>
       <Name>Cryptobot.Interfaces</Name>

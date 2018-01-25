@@ -150,6 +150,7 @@ namespace CryptoBot.Indicators
 
         public ArrowType GetArrow(int bar)
         {
+            if (_zigZagBufferBuy == null) return ArrowType.None;
             if (bar < 0 || bar >= _zigZagBufferBuy.Length) return ArrowType.None;
             if (_zigZagBufferBuy[bar] != 0) return ArrowType.Buy;
             if (_zigZagBufferSell[bar] != 0) return ArrowType.Sell;
