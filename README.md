@@ -40,6 +40,11 @@ If you want to send signals to your telegram channel then you will need to:
 ```
 
 
+## Telegram bot channel
+
+in case you just want to follow the signals send by this bot you can subscribe to https://t.me/TrendReversalBot
+Please don't follow the signals blindly ! Do your own research
+
 ## History
 
 v1.01
