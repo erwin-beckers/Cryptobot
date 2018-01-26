@@ -17,11 +17,11 @@ namespace CryptoBot.Indicators
         private decimal _extDeviation;
         private int _extBackstep;
 
-        public ZigZag(int depth = 3, decimal deviation = 5.0M, int backStep = 60)
+        public ZigZag(int extDepth = 60, decimal extDeviation = 5.0M, int extBackstep = 3)
         {
-            _extDepth = depth;
-            _extDeviation = deviation;
-            _extBackstep = backStep;
+            _extDepth = extDepth;
+            _extDeviation = extDeviation;
+            _extBackstep = extBackstep;
         }
 
         public void Refresh(ISymbol symbol, int startBar = 0)
