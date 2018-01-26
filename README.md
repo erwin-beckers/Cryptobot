@@ -1,10 +1,12 @@
 # Cryptobot
 
 Framework for creating crypto bots on Binance.com
-At the moment the bot contains a implementation of the Simple Trend Reversal Strategy
-But can easily be changed/adapted to other strategies
 
-See https://www.forexfactory.com/showthread.php?t=713593 for more details
+At the moment the bot contains a implementation of the Simple Trend Reversal Strategy
+
+But things can easily be changed/adapted to other strategies
+
+See https://www.forexfactory.com/showthread.php?t=713593 for more details on this strategy
 
 
 #### Binance API KEYS
