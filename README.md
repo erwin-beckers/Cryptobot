@@ -40,7 +40,11 @@ If you want to send signals to your telegram channel then you will need to:
 
 v1.01
 - added trend reversal strategy
-- 
+- added S&R indicator
+- added ZigZag indicator
+- added MBFX indicator
+- added Trendline indicator
+- added Telegram alerts
 
 v1.00
 - initial commit
