@@ -16,6 +16,7 @@ namespace CryptoBot
 {
     public partial class Form1 : Form
     {
+        private readonly int SLEEP_TIMER_SECS = (60 * 10); // 10 mins.
         private List<IStrategy> _pairs = new List<IStrategy>();
         private BinanceClient _client;
         private Thread _thread;
@@ -129,7 +130,7 @@ namespace CryptoBot
                     this.toolStripProgressBar1.Value = 0;
                 }));
 
-                for (int i = 60; i >= 0; i--)
+                for (int i = SLEEP_TIMER_SECS; i >= 0; i--)
                 {
                     this.Invoke((MethodInvoker)(() =>
                     {

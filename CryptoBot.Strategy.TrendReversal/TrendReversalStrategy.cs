@@ -1,6 +1,7 @@
 ﻿using Cryptobot.Interfaces;
 using CryptoBot.Indicators;
 using System;
+using System.Linq;
 
 namespace CryptoBot.Strategy.TrendReversal
 {
@@ -139,6 +140,14 @@ namespace CryptoBot.Strategy.TrendReversal
                 _signal.Indicators[3].IsValid = sma15Ok;
                 _signal.Indicators[4].IsValid = _supportResistance.IsAtSupportResistance(zigZagPrice, Symbol.AverageCandleSize);
                 _signal.Type = zigZagBuy ? SignalType.Buy : SignalType.Sell;
+
+                var validCount = _signal.Indicators.Count(e => e.IsValid);
+                if (validCount == 5)
+                {
+                    string signal = zigZagBuy ? "Buy " : "Sell ";
+                    string alert = $"{signal} {Symbol.NiceName}";
+                    Symbol.SendAlert(alert);
+                }
             }
             else
             {

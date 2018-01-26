@@ -274,6 +274,13 @@ namespace CryptoBotApp.bot
         public void SendAlert(string text)
         {
             if (text == _prevAlert) return;
+
+            // skip initial alert
+            if (String.IsNullOrEmpty(_prevAlert))
+            {
+                _prevAlert = text;
+                return;
+            }
             _prevAlert = text;
             TelegramBot.Send(text);
         }
