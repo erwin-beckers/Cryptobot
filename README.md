@@ -48,6 +48,7 @@ v1.01
 - added ZigZag indicator
 - added MBFX indicator
 - added Trendline indicator
+- added moving average indicator
 - added Telegram alerts
 
 v1.00
