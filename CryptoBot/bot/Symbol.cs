@@ -8,7 +8,7 @@ namespace CryptoBotApp.bot
 {
     public class Symbol : ISymbol
     {
-        private readonly int MAX_LIMIT_CANDLES = 200;
+        private readonly int MAX_LIMIT_CANDLES = 3000;
         private BinanceClient _client;
         private List<ICandle> _candles;
         private DateTime _lastRefresh;
@@ -31,12 +31,16 @@ namespace CryptoBotApp.bot
         /// Returns the symbol name
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// returns the nice name for the symbol
+        /// </summary>
         public string NiceName
         {
             get
             {
                 var name = Name;
-                if (name.EndsWith("ETH")) name=name.Replace("ETH", "/ETH");
+                if (name.EndsWith("ETH")) name = name.Replace("ETH", "/ETH");
                 if (name.EndsWith("BTC")) name = name.Replace("BTC", "/BTC");
                 if (name.EndsWith("USDT")) name = name.Replace("USDT", "/USDT");
                 if (name.EndsWith("BNB")) name = name.Replace("BNB", "/BNB");
@@ -44,6 +48,7 @@ namespace CryptoBotApp.bot
                 return name;
             }
         }
+
         /// <summary>
         /// Returns the time frame
         /// </summary>
@@ -53,6 +58,11 @@ namespace CryptoBotApp.bot
         /// Returns the point value
         /// </summary>
         public decimal Point { get; private set; }
+
+        /// <summary>
+        /// Returns the digits
+        /// </summary>
+        public int Digits { get; private set; }
 
         /// <summary>
         /// List of candles
@@ -69,6 +79,9 @@ namespace CryptoBotApp.bot
         /// </summary>
         public ICandle PreviousCandle => Candles?[1];
 
+        /// <summary>
+        /// returns the average candle size
+        /// </summary>
         public decimal AverageCandleSize { get; private set; }
 
         /// <summary>
@@ -118,11 +131,13 @@ namespace CryptoBotApp.bot
             string price = result.Data[0].Open.ToString();
             int length = price.Substring(price.IndexOf(".") + 1).Length;
             price = "0.";
+
             for (int i = 0; i < length; ++i)
             {
                 if (i + 1 < length) price += "0";
                 else price += "1";
             }
+            Digits = length;
             Point = Decimal.Parse(price);
 
             _candles = new List<ICandle>();
@@ -200,6 +215,60 @@ namespace CryptoBotApp.bot
                 }
             }
             return maxCandle;
+        }
+
+        /// <summary>
+        /// returns the bar with the lowest price
+        /// </summary>
+        public int LowestBar
+        {
+            get
+            {
+                ICandle minCandle = null;
+                int minIndex = 0;
+                for (int i = 0; i < Candles.Count; ++i)
+                {
+                    var candle = Candles[i];
+                    if (minCandle == null)
+                    {
+                        minCandle = candle;
+                        minIndex = i;
+                    }
+                    else if (candle.Low < minCandle.Low)
+                    {
+                        minCandle = candle;
+                        minIndex = i;
+                    }
+                }
+                return minIndex;
+            }
+        }
+
+        /// <summary>
+        /// returns the bar with the highest price
+        /// </summary>
+        public int HighestBar
+        {
+            get
+            {
+                ICandle maxCandle = null;
+                int maxIndex = 0;
+                for (int i = 0; i < Candles.Count; ++i)
+                {
+                    var candle = Candles[i];
+                    if (maxCandle == null)
+                    {
+                        maxCandle = candle;
+                        maxIndex = i;
+                    }
+                    else if (candle.High > maxCandle.High)
+                    {
+                        maxCandle = candle;
+                        maxIndex = i;
+                    }
+                }
+                return maxIndex;
+            }
         }
 
         public void SendAlert(string text)

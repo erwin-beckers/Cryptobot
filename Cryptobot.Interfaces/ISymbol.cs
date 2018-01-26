@@ -48,7 +48,6 @@ namespace Cryptobot.Interfaces
         /// <param name="startBar">Start bar.</param>
         ICandle Lowest(int count, int startBar);
 
-
         /// <summary>
         /// returns the candle with the highest wick
         /// </summary>
@@ -58,12 +57,36 @@ namespace Cryptobot.Interfaces
         ICandle Highest(int count, int startBar);
 
         /// <summary>
-        /// Gets the point.
+        /// returns point value of this symbol.
         /// </summary>
-        /// <value>The point.</value>
+        /// <value>The point value</value>
         decimal Point { get; }
+
+        /// <summary>
+        /// return the # of digits of this symbol.
+        /// </summary>
+        int Digits { get; }
+
+        /// <summary>
+        /// returns the nice name for this symbol
+        /// </summary>
         string NiceName { get; }
 
+        /// <summary>
+        /// returns index to candle with the lowest price
+        /// </summary>
+        int LowestBar { get; }
+
+        /// <summary>
+        /// returns index to candle with the highest price
+        /// </summary>
+        /// 
+        int HighestBar { get; }
+
+        /// <summary>
+        /// sends an alert to telegram
+        /// </summary>
+        /// <param name="text">the alert</param>
         void SendAlert(string text);
     }
 }

@@ -126,9 +126,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License-LGPL.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CryptoBot.Indicators\CryptoBot.Indicators.csproj">
       <Project>{07B6C478-0695-48D1-8883-0DAA2B643141}</Project>
       <Name>CryptoBot.Indicators</Name>

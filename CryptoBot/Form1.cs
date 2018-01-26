@@ -20,10 +20,16 @@ namespace CryptoBot
         private BinanceClient _client;
         private Thread _thread;
         private bool _threadRunning;
+        private string _currentPair;
 
         public Form1()
         {
             InitializeComponent();
+            zedGraphControl1.PanButtons = MouseButtons.Left;
+            zedGraphControl1.PanModifierKeys = Keys.None;
+            zedGraphControl1.ZoomButtons = MouseButtons.Left;
+            zedGraphControl1.ZoomModifierKeys = Keys.Control;
+
             var apiKey = ConfigurationManager.AppSettings["apikey"];
             var apiSecret = ConfigurationManager.AppSettings["apisecret"];
 
@@ -171,7 +177,7 @@ namespace CryptoBot
                 }
 
                 var masterPane = zedGraphControl1.MasterPane;
-               // while (masterPane.PaneList.Count < 2) masterPane.PaneList.Add(new GraphPane());
+                // while (masterPane.PaneList.Count < 2) masterPane.PaneList.Add(new GraphPane());
                 var mainPane = masterPane.PaneList[0];
                 // var mbfxPane = masterPane.PaneList[1];
                 //mbfxPane.
@@ -182,12 +188,15 @@ namespace CryptoBot
                     case TimeFrame.Day:
                         timeFrame = "D1";
                         break;
+
                     case TimeFrame.FourHour:
                         timeFrame = "H4";
                         break;
+
                     case TimeFrame.Month:
                         timeFrame = "M1";
                         break;
+
                     case TimeFrame.OneHour:
                         timeFrame = "H1";
                         break;
@@ -246,6 +255,11 @@ namespace CryptoBot
                 // Tell ZedGraph to calculate the axis ranges
                 zedGraphControl1.AxisChange();
                 zedGraphControl1.Invalidate();
+                if (_currentPair != pairName)
+                {
+                    _currentPair = pairName;
+                    zedGraphControl1.RestoreScale(mainPane);
+                }
             }
         }
 
@@ -259,23 +273,38 @@ namespace CryptoBot
             DataGridView dgv = sender as DataGridView;
             var row = (DataRowView)dgv.Rows[e.RowIndex].DataBoundItem;
             var pairName = (string)row.Row["pair"];
+
             var pair = _pairs.FirstOrDefault(x => x.Symbol.NiceName == pairName);
             if (pair != null)
             {
-                if (pair.Signal.Type == SignalType.Sell)
+                e.CellStyle.ForeColor = Color.White;
+                e.CellStyle.BackColor = Color.LightGray;
+                var color = Color.LightGray;
+                if (pair.Signal.Type == SignalType.Sell) color = Color.Red;
+                if (pair.Signal.Type == SignalType.Buy) color = Color.Green;
+
+                var index = e.ColumnIndex;
+                if (index == 0)
                 {
                     e.CellStyle.ForeColor = Color.White;
-                    e.CellStyle.BackColor = Color.Red;
+                    e.CellStyle.BackColor = color;
                 }
-                else if (pair.Signal.Type == SignalType.Buy)
+                else if (index >= 1 && index <= pair.Signal.Indicators.Count)
                 {
-                    e.CellStyle.ForeColor = Color.White;
-                    e.CellStyle.BackColor = Color.Green;
+                    if (pair.Signal.Indicators[index - 1].IsValid)
+                    {
+                        e.CellStyle.ForeColor = Color.White;
+                        e.CellStyle.BackColor = color;
+                    }
                 }
-                else if (pair.Signal.Type == SignalType.None)
+                else if (index > pair.Signal.Indicators.Count)
                 {
-                    e.CellStyle.ForeColor = Color.Black;
-                    e.CellStyle.BackColor = Color.LightGray;
+                    var validIndicators = pair.Signal.Indicators.Count(x => x.IsValid);
+                    if (validIndicators == pair.Signal.Indicators.Count)
+                    {
+                        e.CellStyle.ForeColor = Color.White;
+                        e.CellStyle.BackColor = color;
+                    }
                 }
             }
         }

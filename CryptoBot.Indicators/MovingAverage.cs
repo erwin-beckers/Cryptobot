@@ -1,5 +1,5 @@
-﻿using System;
-using Cryptobot.Interfaces;
+﻿using Cryptobot.Interfaces;
+using System;
 
 namespace CryptoBot.Indicators
 {
@@ -7,7 +7,7 @@ namespace CryptoBot.Indicators
     {
         Close,
         Open,
-        High, 
+        High,
         Low
     }
 
@@ -22,7 +22,7 @@ namespace CryptoBot.Indicators
     // todo : MaMethod is not used atm...
 
     public static class MovingAverage
-    { 
+    {
         public static decimal Get(ISymbol symbol, int bar, int period, MaMethod method = MaMethod.Sma, AppliedPrice appliedPrice = AppliedPrice.Close)
         {
             decimal price = 0M;
@@ -46,7 +46,7 @@ namespace CryptoBot.Indicators
                     case AppliedPrice.Low:
                         price += symbol.Candles[idx].Low;
                         break;
-                } 
+                }
             }
             return price / ((decimal)period);
         }

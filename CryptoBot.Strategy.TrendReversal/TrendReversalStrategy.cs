@@ -13,6 +13,7 @@ namespace CryptoBot.Strategy.TrendReversal
         private ZigZag _zigZag = new ZigZag();
         private Mbfx _mbfx = new Mbfx();
         private TrendLine _trendLine = new TrendLine();
+        private SupportResistance _supportResistance;
         private Signal _signal = new Signal();
 
         public TrendReversalStrategy(ISymbol symbol)
@@ -23,6 +24,8 @@ namespace CryptoBot.Strategy.TrendReversal
             _signal.Indicators.Add(new Indicator("MBFX"));
             _signal.Indicators.Add(new Indicator("Trend"));
             _signal.Indicators.Add(new Indicator("MA15"));
+            _signal.Indicators.Add(new Indicator("S&R"));
+            _supportResistance = new SupportResistance(Symbol);
         }
 
         public ISymbol Symbol { get; private set; }
@@ -42,6 +45,7 @@ namespace CryptoBot.Strategy.TrendReversal
             bool mbfxOk = false;
             bool trendOk = false;
             bool sma15Ok = false;
+            decimal zigZagPrice = 0M;
 
             // Rule #1: a zigzar arrow appears
             for (int bar = ZigZagCandles; bar >= 1; bar--)
@@ -52,12 +56,14 @@ namespace CryptoBot.Strategy.TrendReversal
                     zigZagBuy = true;
                     zigZagSell = false;
                     zigZagBar = bar;
+                    zigZagPrice = Symbol.Candles[bar].Low;
                 }
                 if (arrow == ArrowType.Sell)
                 {
                     zigZagBuy = false;
                     zigZagSell = true;
                     zigZagBar = bar;
+                    zigZagPrice = Symbol.Candles[bar].High;
                 }
             }
 
@@ -131,6 +137,7 @@ namespace CryptoBot.Strategy.TrendReversal
                 _signal.Indicators[1].IsValid = mbfxOk;
                 _signal.Indicators[2].IsValid = trendOk;
                 _signal.Indicators[3].IsValid = sma15Ok;
+                _signal.Indicators[4].IsValid = _supportResistance.IsAtSupportResistance(zigZagPrice, Symbol.AverageCandleSize);
                 _signal.Type = zigZagBuy ? SignalType.Buy : SignalType.Sell;
             }
             else

@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBot.Indicators", "Cry
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBot.Strategy.TrendReversal", "CryptoBot.Strategy.TrendReversal\CryptoBot.Strategy.TrendReversal.csproj", "{37D75E8A-5628-4F2C-9F51-7004F67D6494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBotConsoleApp", "CryptoBotConsoleApp\CryptoBotConsoleApp.csproj", "{45EE9BC0-A448-4721-9829-347068633B4C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBot", "CryptoBot\CryptoBot.csproj", "{465A91BB-6F44-40FA-946A-B9307FC91ED4}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D75E8A-5628-4F2C-9F51-7004F67D6494}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45EE9BC0-A448-4721-9829-347068633B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45EE9BC0-A448-4721-9829-347068633B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45EE9BC0-A448-4721-9829-347068633B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45EE9BC0-A448-4721-9829-347068633B4C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{465A91BB-6F44-40FA-946A-B9307FC91ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{465A91BB-6F44-40FA-946A-B9307FC91ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{465A91BB-6F44-40FA-946A-B9307FC91ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU

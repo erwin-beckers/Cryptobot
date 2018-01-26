@@ -1,5 +1,5 @@
-﻿using System;
-using Cryptobot.Interfaces;
+﻿using Cryptobot.Interfaces;
+using System;
 
 namespace CryptoBot.Indicators
 {
@@ -64,13 +64,12 @@ namespace CryptoBot.Indicators
                 // _trendRed[i] = iMAOnArray(_trendNone, 0, maPeriod, 0, ma_method, i);
                 _trendRed[i] = MovingAverage.OnArray(_trendNone, 0, maPeriod, 0, MaMethod.LWMA, i);
             }
-
         }
 
         public decimal GetValue(int bar)
         {
             bar = Math.Max(0, bar);
-            bar = Math.Min(bar, _trendRed.Length-1);
+            bar = Math.Min(bar, _trendRed.Length - 1);
             return _trendRed[bar];
         }
     }

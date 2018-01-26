@@ -1,5 +1,5 @@
-﻿using System;
-using Cryptobot.Interfaces;
+﻿using Cryptobot.Interfaces;
+using System;
 
 namespace CryptoBot.Indicators
 {
@@ -8,8 +8,8 @@ namespace CryptoBot.Indicators
         private decimal[] _mbfxYellow;
         private decimal[] _mbfxGreen;
         private decimal[] _mbfxRed;
-        int _len;
-        decimal _filter;
+        private int _len;
+        private decimal _filter;
 
         public Mbfx(int len = 7, decimal filter = 0.0M)
         {
@@ -19,22 +19,22 @@ namespace CryptoBot.Indicators
 
         public bool IsGreen(int bar)
         {
-            if (bar <0 || bar >= _mbfxGreen.Length) return false;
+            if (bar < 0 || bar >= _mbfxGreen.Length) return false;
             return (_mbfxGreen[bar] != decimal.MaxValue);
         }
-        
+
         public decimal GreenValue(int bar)
         {
-          if (bar <0 || bar >= _mbfxGreen.Length) return decimal.MaxValue;
-          return _mbfxGreen[bar];
-        } 
-       
+            if (bar < 0 || bar >= _mbfxGreen.Length) return decimal.MaxValue;
+            return _mbfxGreen[bar];
+        }
+
         public decimal RedValue(int bar)
         {
-           if (bar <0 || bar >= _mbfxGreen.Length) return decimal.MaxValue;
-           return _mbfxRed[bar];
+            if (bar < 0 || bar >= _mbfxGreen.Length) return decimal.MaxValue;
+            return _mbfxRed[bar];
         }
-       
+
         public void Refresh(ISymbol symbol)
         {
             _mbfxYellow = new decimal[symbol.Candles.Count];
@@ -68,7 +68,7 @@ namespace CryptoBot.Indicators
             decimal ld_200 = 0M;
             decimal ld_208 = 0M;
 
-            int barLimit = (symbol.Candles.Count-1) - _len - 1;
+            int barLimit = (symbol.Candles.Count - 1) - _len - 1;
             for (int bar = barLimit; bar >= 0; bar--)
             {
                 var candle = symbol.Candles[bar];
@@ -78,7 +78,7 @@ namespace CryptoBot.Indicators
                     ld_16 = 0.0M;
                     if (_len - 1M >= 5M) ld_0 = _len - 1.0M;
                     else ld_0 = 5.0M;
-                    ld_80 = 100.0M * ( (candle.High + candle.Low + candle.Close) / 3.0M);
+                    ld_80 = 100.0M * ((candle.High + candle.Low + candle.Close) / 3.0M);
                     ld_96 = 3.0M / (_len + 2.0M);
                     ld_104 = 1.0M - ld_96;
                 }
@@ -87,7 +87,7 @@ namespace CryptoBot.Indicators
                     if (ld_0 <= ld_8) ld_8 = ld_0 + 1.0M;
                     else ld_8 += 1.0M;
                     ld_88 = ld_80;
-                    ld_80 = 100.0M * ( (candle.High + candle.Low + candle.Close) / 3.0M);
+                    ld_80 = 100.0M * ((candle.High + candle.Low + candle.Close) / 3.0M);
                     ld_32 = ld_80 - ld_88;
                     ld_112 = ld_104 * ld_112 + ld_96 * ld_32;
                     ld_120 = ld_96 * ld_112 + ld_104 * ld_120;

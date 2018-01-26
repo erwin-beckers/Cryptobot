@@ -2,7 +2,6 @@
 
 namespace CryptoBot.Indicators
 {
-
     public enum ArrowType
     {
         None,
@@ -15,10 +14,10 @@ namespace CryptoBot.Indicators
         private decimal[] _zigZagBufferBuy;
         private decimal[] _zigZagBufferSell;
         private int _extDepth;
-        private int _extDeviation;
+        private decimal _extDeviation;
         private int _extBackstep;
 
-        public ZigZag(int depth = 3, int deviation = 5, int backStep = 60)
+        public ZigZag(int depth = 3, decimal deviation = 5.0M, int backStep = 60)
         {
             _extDepth = depth;
             _extDeviation = deviation;
@@ -91,7 +90,7 @@ namespace CryptoBot.Indicators
                 _zigZagBufferSell[shift] = val;
             }
 
-            // final cutting 
+            // final cutting
             lasthigh = -1;
             lasthighpos = -1;
             lastlow = -1;

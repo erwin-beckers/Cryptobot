@@ -1,7 +1,4 @@
 ﻿using Cryptobot.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CryptoBot.Strategy.TrendReversal
 {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cryptobot.Interfaces
 {
@@ -15,7 +11,7 @@ namespace Cryptobot.Interfaces
         decimal Low { get; }
         DateTime OpenTime { get; }
         DateTime CloseTime { get; }
-        
+
         decimal UpperWick { get; }
         decimal LowerWick { get; }
 
