@@ -44,14 +44,16 @@ namespace CryptoBot.Indicators
         }
 
         //+------------------------------------------------------------------+
-        private bool DoesSRLevelExists(decimal price, decimal range)
+        private bool DoesSRLevelExists(decimal price, decimal range, out SRLine srLine)
         {
+            srLine = null;
             if (_lines.Count <= 0) return false;
             foreach (var line in _lines)
             {
                 var diff = Math.Abs(price - line.Price);
                 if (diff <= range)
                 {
+                    srLine = line;
                     return true;
                 }
             }
@@ -277,8 +279,45 @@ namespace CryptoBot.Indicators
         public bool IsAtSupportResistance(decimal price, decimal range)
         {
             Calculate();
-            if (DoesSRLevelExists(price, range)) return true;
+            SRLine line;
+            if (DoesSRLevelExists(price, range, out line)) return true;
             return false;
+        }
+
+        //+------------------------------------------------------------------+
+        public decimal GetNextSupportLevel(decimal price, decimal range)
+        {
+            Calculate();
+            SRLine line;
+            if (!DoesSRLevelExists(price, range, out line)) return -1;
+            if (line == null) return-1;
+
+            for (int i=1; i < _lines.Count; ++i)
+            {
+                if (_lines[i] == line)
+                {
+                    return _lines[i - 1].Price;
+                }
+            }
+            return -1;
+        }
+
+        //+------------------------------------------------------------------+
+        public decimal GetNextResistanceLevel(decimal price, decimal range)
+        {
+            Calculate();
+            SRLine line;
+            if (!DoesSRLevelExists(price, range, out line)) return -1;
+            if (line == null) return -1;
+
+            for (int i = 0; i+1 < _lines.Count; ++i)
+            {
+                if (_lines[i] == line)
+                {
+                    return _lines[i + 1].Price;
+                }
+            }
+            return -1;
         }
     }
 }

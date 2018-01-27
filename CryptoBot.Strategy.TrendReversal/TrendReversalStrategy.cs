@@ -140,12 +140,23 @@ namespace CryptoBot.Strategy.TrendReversal
                 _signal.Indicators[3].IsValid = sma15Ok;
                 _signal.Indicators[4].IsValid = _supportResistance.IsAtSupportResistance(zigZagPrice, Symbol.AverageCandleSize);
                 _signal.Type = zigZagBuy ? SignalType.Buy : SignalType.Sell;
-
+                if (_signal.Indicators[4].IsValid)
+                {
+                    if (zigZagBuy)
+                    {
+                        _signal.CloseAtPrice = _supportResistance.GetNextResistanceLevel(zigZagPrice, Symbol.AverageCandleSize);
+                    }
+                    else if (zigZagSell)
+                    {
+                        _signal.CloseAtPrice = _supportResistance.GetNextSupportLevel(zigZagPrice, Symbol.AverageCandleSize);
+                    }
+                }
                 var validCount = _signal.Indicators.Count(e => e.IsValid);
                 if (validCount == 5)
                 {
                     string signal = zigZagBuy ? "Buy " : "Sell ";
-                    string alert = $"{signal} {Symbol.NiceName}";
+                    string signalInverse = zigZagBuy ? "Sell " : "Buy ";
+                    string alert = $"{signal} {Symbol.NiceName} {Symbol.NiceTimeFrame}\r\n{signalInverse} at {_signal.CloseAtPrice}";
                     Symbol.SendAlert(alert);
                 }
             }

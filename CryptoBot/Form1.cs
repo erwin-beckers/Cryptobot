@@ -2,6 +2,7 @@
 using Cryptobot.Interfaces;
 using CryptoBot.Indicators;
 using CryptoBot.Strategy.TrendReversal;
+using CryptoBotApp.bot;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -48,9 +49,7 @@ namespace CryptoBot
             foreach (var symbol in symbols)
             {
                 _pairs.Add(factory.Create(new CryptoBotApp.bot.Symbol(_client, symbol.Symbol, timeFrame)));
-#if DEBUG
-               // if (_pairs.Count >= 5) break;
-#endif
+
             }
             this.toolStripProgressBar1.Maximum = _pairs.Count;
             this.toolStripProgressBar1.Minimum = 0;
@@ -61,6 +60,7 @@ namespace CryptoBot
         private void Start()
         {
             if (_threadRunning) return;
+            TelegramBot.Send("=== bot started ===");
             _threadRunning = true;
             _thread = new Thread(new ThreadStart(Process));
             _thread.Start();
@@ -183,26 +183,7 @@ namespace CryptoBot
                 // var mbfxPane = masterPane.PaneList[1];
                 //mbfxPane.
 
-                string timeFrame = "";
-                switch (pair.Symbol.TimeFrame)
-                {
-                    case TimeFrame.Day:
-                        timeFrame = "D1";
-                        break;
-
-                    case TimeFrame.FourHour:
-                        timeFrame = "H4";
-                        break;
-
-                    case TimeFrame.Month:
-                        timeFrame = "M1";
-                        break;
-
-                    case TimeFrame.OneHour:
-                        timeFrame = "H1";
-                        break;
-                }
-                mainPane.Title.Text = pair.Symbol.NiceName + " " + timeFrame;
+                mainPane.Title.Text = pair.Symbol.NiceName + " " + pair.Symbol.NiceTimeFrame;
                 mainPane.CurveList.Clear();
                 var candleSticks = mainPane.AddJapaneseCandleStick("candles", candleStickPoints);
                 candleSticks.Stick.FallingFill = new Fill(Color.Red);

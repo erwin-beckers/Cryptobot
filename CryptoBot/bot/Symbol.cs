@@ -84,6 +84,13 @@ namespace CryptoBotApp.bot
         /// </summary>
         public decimal AverageCandleSize { get; private set; }
 
+        public decimal Price
+        {
+            get
+            {
+                return _client.GetPrice(Name).Data.Price;
+            }
+        }
         /// <summary>
         /// Refreshes candle sticks with exchange
         /// </summary>
@@ -271,16 +278,31 @@ namespace CryptoBotApp.bot
             }
         }
 
+        public string NiceTimeFrame
+        {
+            get
+            {
+                switch (TimeFrame)
+                {
+                    case TimeFrame.Day:
+                        return "D1";
+
+                    case TimeFrame.FourHour:
+                        return "H4";
+
+                    case TimeFrame.Month:
+                        return "MN1";
+
+                    case TimeFrame.OneHour:
+                        return "H1";
+                }
+                return TimeFrame.ToString();
+            }
+        }
+
         public void SendAlert(string text)
         {
             if (text == _prevAlert) return;
-
-            // skip initial alert
-            if (String.IsNullOrEmpty(_prevAlert))
-            {
-                _prevAlert = text;
-                return;
-            }
             _prevAlert = text;
             TelegramBot.Send(text);
         }

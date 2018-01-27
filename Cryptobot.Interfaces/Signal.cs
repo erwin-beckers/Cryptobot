@@ -26,6 +26,7 @@ namespace Cryptobot.Interfaces
         public ISymbol Symbol { get; set; }
         public SignalType Type { get; set; }
         public List<Indicator> Indicators { get; set; }
+        public decimal CloseAtPrice { get; set; }
 
         public int Count
         {

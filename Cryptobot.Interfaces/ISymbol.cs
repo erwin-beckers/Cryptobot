@@ -88,5 +88,9 @@ namespace Cryptobot.Interfaces
         /// </summary>
         /// <param name="text">the alert</param>
         void SendAlert(string text);
+
+        string NiceTimeFrame { get; }
+
+        decimal Price { get; }
     }
 }
