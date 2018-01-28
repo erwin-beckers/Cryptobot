@@ -59,12 +59,14 @@ namespace CryptoBot.Strategy.TrendReversal
                     zigZagBar = bar;
                     zigZagPrice = Symbol.Candles[bar].Low;
                 }
+
                 if (arrow == ArrowType.Sell)
                 {
-                    zigZagBuy = false;
-                    zigZagSell = true;
-                    zigZagBar = bar;
-                    zigZagPrice = Symbol.Candles[bar].High;
+                    break;
+                    //zigZagBuy = false;
+                    //zigZagSell = true;
+                    //zigZagBar = bar;
+                    //zigZagPrice = Symbol.Candles[bar].High;
                 }
             }
 
@@ -98,7 +100,7 @@ namespace CryptoBot.Strategy.TrendReversal
                     sma15Ok = true;
                 }
             }
-
+            /*
             // SELL signals
             if (zigZagSell && zigZagBar > 0)
             {
@@ -130,6 +132,7 @@ namespace CryptoBot.Strategy.TrendReversal
                     sma15Ok = true;
                 }
             }
+            */
 
             // set indicators
             if (zigZagBar >= 1 && (zigZagBuy || zigZagSell))
@@ -155,7 +158,7 @@ namespace CryptoBot.Strategy.TrendReversal
                 if (validCount == 5)
                 {
                     string signal = zigZagBuy ? "Buy " : "Sell ";
-                    string signalInverse = zigZagBuy ? "Sell " : "Buy ";
+                    string signalInverse = "Take profit @ ";
                     string alert = $"{signal} {Symbol.NiceName} {Symbol.NiceTimeFrame}\r\n{signalInverse} at {_signal.CloseAtPrice}";
                     Symbol.SendAlert(alert);
                 }
